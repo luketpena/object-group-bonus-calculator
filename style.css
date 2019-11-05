@@ -1,0 +1,39 @@
+body {
+  background-color: slategray;
+}
+
+.contentBox {
+  background-color: white;
+  border-radius: 16px;
+  max-width: 512px;
+  min-width: 256px;
+  margin: 128px auto;
+  padding: 16px;
+}
+
+h1 {
+  text-align: center;
+  color: steelblue;
+}
+
+#calcButton {
+  margin: 0 auto;
+  display: block;
+  border: 1px solid steelblue;
+  border-radius: 8px;
+  padding: 8px;
+  color: steelblue;
+  transition: all .2s;
+}
+
+#calcButton:hover {
+  color: white;
+  background-color: steelblue;
+  cursor: pointer;
+  padding: 8px 32px;
+  border-radius: 2px;
+}
+
+li {
+  color: slategray;
+}

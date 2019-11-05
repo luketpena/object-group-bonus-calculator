@@ -40,4 +40,49 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
+$( document ).ready( jq_init );
+
+function calculateBonus (employee) {
+  let bonusPercent = 0;
+  let bonusValue = 0;
+
+  //>> Bonus: Review Rating
+  switch(employee.reviewRating) {
+    case 3: bonusPercent += .04; break;
+    case 4: bonusPercent += .06; break;
+    case 5: bonusPercent += .10; break;
+  }
+  //>> Bonus: Seniority
+  if (employee.employeeNumber.length===4) {bonusPercent += .05;}
+  //>> Bonus Reduction: Salary
+  if (Number(employee.annualSalary)>65000) {bonusPercent -= .01;}
+  //>> Limiting bonus size
+  if (bonusPercent<0.00) {bonusPercent = 0.00;}
+  if (bonusPercent>0.13) {bonusPercent = 0.13;}
+  //>> Calculate bonusValue
+  bonusValue = Math.round(employee.annualSalary * bonusPercent);
+
+  return {
+    name: employee.name,
+    bonusPercentage: bonusPercent,
+    totalCompensation: Math.round(Number(employee.annualSalary) + bonusValue),
+    totalBonus: bonusValue
+  }
+}
 console.log( employees );
+
+function processEmployees() {
+  $('#employeeInfo').empty();
+  for (let i=0; i<employees.length; i++) {
+    let bonus = calculateBonus(employees[i]);
+    console.log( bonus );
+    $('#employeeInfo').append(
+      `<li>${bonus.name} receives a ${Number(bonus.bonusPercentage)*100}% raise. They now make $${bonus.totalCompensation}.</li>`
+    )
+  }
+}
+
+function jq_init() {
+  console.log( 'JQ is ready.' );
+  $('#calcButton').on('click',processEmployees);
+}
